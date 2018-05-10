@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     sort (column, direction) {
-      this.standings.sort((a, b) => direction * (a[column] - b[column]))
+      this.players.sort((a, b) => direction * (a[column] - b[column]))
       this.sortedOn = column
     },
     fetchData () {
