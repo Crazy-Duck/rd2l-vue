@@ -71,17 +71,17 @@ export default {
       this.loading = true
       if (this.season === 13) {
         this.players = [{
-          id: 1234567,
+          id: 161440418,
           steamname: 'Crazy-Duck',
           rank: 62
         }]
       } else {
         this.players = [{
-          id: 1111111,
+          id: 27997450,
           steamname: 'Mikel',
           rank: 72
         }, {
-          id: 9999999,
+          id: 187713322,
           steamname: 'Firefiend',
           rank: 65
         }]

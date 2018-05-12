@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>{{ idx + 1 }}</td>
-    <td>{{ player.steamname }}</td>
+    <td><router-link :to="`/player/${player.id}`">{{ player.steamname }}</router-link></td>
     <td class="medal">
       <img :src="`https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${player.rank % 10}.png`">
       <img :src="`https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_${Math.floor(player.rank / 10)}.png`">

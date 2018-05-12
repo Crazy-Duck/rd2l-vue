@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import NavBar from '@/components/NavBar'
 import HomePage from '@/components/HomePage'
 import SeasonHome from '@/components/SeasonHome'
+import PlayerProfile from '@/components/PlayerProfile'
 
 Vue.use(Router)
 
@@ -24,6 +25,16 @@ export default new Router({
       },
       props: {
         default: route => ({ season: Number(route.params.season) })
+      }
+    }, {
+      path: '/player/:id',
+      name: 'PlayerProfile',
+      components: {
+        default: PlayerProfile,
+        navigation: NavBar
+      },
+      props: {
+        default: route => ({ id: Number(route.params.id) })
       }
     }
   ]
