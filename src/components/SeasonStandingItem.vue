@@ -1,7 +1,7 @@
 <template>
   <tr>
     <th>{{ idx + 1 }}</th>
-    <td>{{ team.name }}</td>
+    <td><router-link :to="`/team/${team.id}`">{{ team.name }}</router-link></td>
     <td>{{ team.wins }}</td>
     <td>{{ team.loss }}</td>
     <td>{{ team.ties }}</td>

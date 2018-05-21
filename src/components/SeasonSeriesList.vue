@@ -49,12 +49,12 @@ export default {
       this.loading = true
       if (this.season === 13) {
         this.matchups = [
-          {id: 0, home: 'German Farmers', away: 'Severely Underwhelming'},
-          {id: 1, home: 'Severely Underwhelming', away: '4 Whites & a yolk', score: '2 - 0'}
+          {id: 0, home: {id: 0, name: 'German Farmers'}, away: {id: 1, name: 'Strong & stable'}},
+          {id: 1, home: {id: 1, name: 'Strong & stable'}, away: {id: 2, name: '4 Whites & a yolk'}, score: '2 - 0'}
         ]
       } else {
         this.matchups = [
-          {id: 0, home: 'German Farmers', away: 'Severely Underwhelming'}
+          {id: 2, home: {id: 0, name: 'German Farmers'}, away: {id: 2, name: '4 Whites & a yolk'}}
         ]
       }
       this.loading = false

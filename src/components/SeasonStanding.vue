@@ -93,23 +93,23 @@ export default {
           ]
         } else {
           this.standings = [
-            {id: 0, name: 'Evil Geniuses', wins: 10, loss: 1, ties: 0},
-            {id: 1, name: 'Optic Gaming', wins: 9, loss: 0, ties: 2},
-            {id: 2, name: 'Complexity', wins: 7, loss: 2, ties: 2}
+            {id: 3, name: 'Evil Geniuses', wins: 10, loss: 1, ties: 0},
+            {id: 4, name: 'Optic Gaming', wins: 9, loss: 0, ties: 2},
+            {id: 5, name: 'Complexity', wins: 7, loss: 2, ties: 2}
           ]
         }
       } else {
         if (this.division === 'CET-WED') {
           this.standings = [
-            {id: 3, name: '4PM', wins: 11, loss: 0, ties: 2},
-            {id: 4, name: 'Beast', wins: 10, loss: 1, ties: 1},
-            {id: 5, name: '4 Whites & a yolk', wins: 7, loss: 2, ties: 3}
+            {id: 6, name: '4PM', wins: 11, loss: 0, ties: 2},
+            {id: 7, name: 'Beast', wins: 10, loss: 1, ties: 1},
+            {id: 2, name: '4 Whites & a yolk', wins: 7, loss: 2, ties: 3}
           ]
         } else {
           this.standings = [
-            {id: 0, name: 'Virtus Pro', wins: 10, loss: 1, ties: 0},
-            {id: 1, name: 'Fly To Moon', wins: 9, loss: 0, ties: 2},
-            {id: 2, name: 'Vega', wins: 7, loss: 2, ties: 2}
+            {id: 8, name: 'Virtus Pro', wins: 10, loss: 1, ties: 0},
+            {id: 9, name: 'Fly To Moon', wins: 9, loss: 0, ties: 2},
+            {id: 10, name: 'Vega', wins: 7, loss: 2, ties: 2}
           ]
         }
       }

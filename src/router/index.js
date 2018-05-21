@@ -4,6 +4,7 @@ import NavBar from '@/components/NavBar'
 import HomePage from '@/components/HomePage'
 import SeasonHome from '@/components/SeasonHome'
 import PlayerProfile from '@/components/PlayerProfile'
+import TeamProfile from '@/components/TeamProfile'
 
 Vue.use(Router)
 
@@ -31,6 +32,16 @@ export default new Router({
       name: 'PlayerProfile',
       components: {
         default: PlayerProfile,
+        navigation: NavBar
+      },
+      props: {
+        default: route => ({ id: Number(route.params.id) })
+      }
+    }, {
+      path: '/team/:id',
+      name: 'TeamProfile',
+      components: {
+        default: TeamProfile,
         navigation: NavBar
       },
       props: {

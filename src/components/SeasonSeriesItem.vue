@@ -1,8 +1,8 @@
 <template>
   <tr>
-    <td>{{ series.home }}</td>
+    <td><router-link :to="`/team/${series.home.id}`">{{ series.home.name }}</router-link></td>
     <td class="has-text-centered">{{ series.score }}</td>
-    <td class="has-text-right">{{ series.away }}</td>
+    <td class="has-text-right"><router-link :to="`/team/${series.away.id}`">{{ series.away.name }}</router-link></td>
   </tr>
 </template>
 

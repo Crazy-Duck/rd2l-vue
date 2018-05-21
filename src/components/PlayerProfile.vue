@@ -1,6 +1,6 @@
 <template>
   <section
-    id="Player">
+    id="PlayerProfile">
     <section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
@@ -8,7 +8,7 @@
             <div class="level-left">
               <h1 class="title">{{ player.steamname }}</h1>
             </div>
-            <figure class="level-right image is-128x128">
+            <figure class="level-right image is-64x64">
               <img
                 :src="`https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_${player.rank % 10}.png`"
                 class="medal">
