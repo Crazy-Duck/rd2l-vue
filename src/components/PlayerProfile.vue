@@ -26,15 +26,15 @@
           <div class="tile is-4 is-parent">
             <div class="article tile is-child box">
               <h3>Mid</h3>
-              <player-role :role="player.roles[0]"/>
+              <player-role :role="player.roles[0] || 0"/>
               <h3>Carry</h3>
-              <player-role :role="player.roles[1]"/>
+              <player-role :role="player.roles[1] || 0"/>
               <h3>Offlane</h3>
-              <player-role :role="player.roles[2]"/>
+              <player-role :role="player.roles[2] || 0"/>
               <h3>Support(4)</h3>
-              <player-role :role="player.roles[3]"/>
+              <player-role :role="player.roles[3] || 0"/>
               <h3>Support(5)</h3>
-              <player-role :role="player.roles[4]"/>
+              <player-role :role="player.roles[4] || 0"/>
             </div>
           </div>
           <div class="tile is-parent is-vertical">
@@ -71,6 +71,8 @@
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import PlayerRole from './PlayerRole.vue'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'PlayerProfile',
   components: {
@@ -84,54 +86,23 @@ export default {
       validator: value => value > 0
     }
   },
-  data () {
-    return {
-      player: null
-    }
+  computed: {
+    ...mapState({
+      player: 'currentPlayer'
+    })
   },
   watch: {
-    '$route': 'fetchData'
+    '$route.params.id' (id) {
+      this.loadPlayerById(id)
+    }
   },
   created () {
-    this.fetchData()
+    this.loadPlayerById(this.id)
   },
   methods: {
-    fetchData () {
-      switch (this.id) {
-        case 161440418:
-          this.player = {
-            id: 161440418,
-            steamname: 'Crazy-Duck',
-            steamid: '76561198121706146',
-            rank: 62,
-            statement: 'I am support, I play Oracle',
-            roles: [1, 4, 3, 4, 5]
-          }
-          break
-        case 27997450: {
-          this.player = {
-            id: 27997450,
-            steamname: 'Mikel',
-            steamid: '76561197988263178',
-            rank: 72,
-            statement: 'I am carry, I dodge enemy',
-            roles: [4, 5, 3, 2, 1]
-          }
-          break
-        }
-        case 187713322: {
-          this.player = {
-            id: 187713322,
-            steamname: 'Firefiend',
-            steamid: '76561198147979050',
-            rank: 65,
-            statement: 'I am mid, I play OD',
-            roles: [5, 4, 3, 2, 1]
-          }
-          break
-        }
-      }
-    }
+    ...mapActions({
+      loadPlayerById: 'loadPlayerById'
+    })
   }
 }
 </script>

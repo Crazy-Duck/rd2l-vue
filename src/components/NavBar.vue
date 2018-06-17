@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="navbar is-spaced has-shadow is-primary"
+    class="navbar is-spaced has-shadow"
     role="navigation"
     aria-label="main navigation">
     <div class="container">
@@ -32,7 +32,7 @@
               <router-link
                 v-for="s in seasons"
                 :key="s"
-                :to="`/season/${s}`"
+                :to="`/seasons/${s}`"
                 class="navbar-item">Season {{ s }}</router-link>
             </div>
           </div>
@@ -43,12 +43,26 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   data () {
     return {
-      showNav: false,
-      seasons: [13, 14]
+      showNav: false
     }
+  },
+  computed: {
+    ...mapState({
+      seasons: 'seasons'
+    })
+  },
+  created () {
+    this.loadSeasons()
+  },
+  methods: {
+    ...mapActions({
+      loadSeasons: 'loadSeasons'
+    })
   }
 }
 </script>

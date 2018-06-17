@@ -14,11 +14,6 @@
           :text="'L'"
           :sorted="sortedOn == 'loss'"
           @sort="sort('loss', $event)"/>
-        <SortableHeader
-          :title="'Ties'"
-          :text="'T'"
-          :sorted="sortedOn == 'ties'"
-          @sort="sort('ties', $event)"/>
       </tr>
     </thead>
     <tbody
@@ -41,79 +36,29 @@
 </style>
 
 <script>
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import SortableHeader from './SortableHeader.vue'
 import SeasonStandingItem from './SeasonStandingItem.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'SeasonStanding',
   components: {
-    FontAwesomeIcon,
     SortableHeader,
     SeasonStandingItem
   },
-  props: {
-    season: {
-      type: Number,
-      required: true,
-      validator: value => value > 0
-    },
-    division: {
-      type: String,
-      required: true
-    }
-  },
   data () {
     return {
-      loading: false,
-      standings: null,
       sortedOn: 'wins'
     }
   },
-  watch: {
-    '$route': 'fetchData',
-    division: 'fetchData'
-  },
-  created () {
-    this.fetchData()
+  computed: {
+    ...mapState({
+      standings: 'standings'
+    })
   },
   methods: {
     sort (column, direction) {
       this.standings.sort((a, b) => direction * (a[column] - b[column]))
       this.sortedOn = column
-    },
-    fetchData () {
-      this.standings = null
-      this.loading = true
-      if (this.season === 13) {
-        if (this.division === 'CET-WED') {
-          this.standings = [
-            {id: 0, name: 'German Farmers', wins: 10, loss: 1, ties: 0},
-            {id: 1, name: 'Strong & stable', wins: 9, loss: 0, ties: 2},
-            {id: 2, name: '4 Whites & a yolk', wins: 7, loss: 2, ties: 2}
-          ]
-        } else {
-          this.standings = [
-            {id: 3, name: 'Evil Geniuses', wins: 10, loss: 1, ties: 0},
-            {id: 4, name: 'Optic Gaming', wins: 9, loss: 0, ties: 2},
-            {id: 5, name: 'Complexity', wins: 7, loss: 2, ties: 2}
-          ]
-        }
-      } else {
-        if (this.division === 'CET-WED') {
-          this.standings = [
-            {id: 6, name: '4PM', wins: 11, loss: 0, ties: 2},
-            {id: 7, name: 'Beast', wins: 10, loss: 1, ties: 1},
-            {id: 2, name: '4 Whites & a yolk', wins: 7, loss: 2, ties: 3}
-          ]
-        } else {
-          this.standings = [
-            {id: 8, name: 'Virtus Pro', wins: 10, loss: 1, ties: 0},
-            {id: 9, name: 'Fly To Moon', wins: 9, loss: 0, ties: 2},
-            {id: 10, name: 'Vega', wins: 7, loss: 2, ties: 2}
-          ]
-        }
-      }
-      this.loading = false
     }
   }
 }

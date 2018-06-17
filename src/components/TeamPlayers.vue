@@ -35,8 +35,10 @@
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import SortableHeader from './SortableHeader.vue'
 import PlayerListItem from './PlayerListItem.vue'
+import { mapActions, mapState } from 'vuex'
+
 export default {
-  name: 'PlayerList',
+  name: 'TeamPlayers',
   components: {
     FontAwesomeIcon,
     SortableHeader,
@@ -51,45 +53,29 @@ export default {
   },
   data () {
     return {
-      loading: false,
-      players: null,
       sortedOn: 'rank'
     }
   },
+  computed: {
+    ...mapState({
+      players: state => state.currentTeam.players
+    })
+  },
   watch: {
-    '$route': 'fetchData'
+    '$route.params.id' (team) {
+      this.loadTeamPlayersById(team)
+    }
   },
   created () {
-    this.fetchData()
+    this.loadTeamPlayersById(this.teamid)
   },
   methods: {
+    ...mapActions({
+      loadTeamPlayersById: 'loadTeamPlayersById'
+    }),
     sort (column, direction) {
       this.players.sort((a, b) => direction * (a[column] - b[column]))
       this.sortedOn = column
-    },
-    fetchData () {
-      this.players = null
-      this.loading = true
-      if (this.teamid === 1) {
-        this.players = [{
-          id: 161440418,
-          steamname: 'Crazy-Duck',
-          rank: 62,
-          captain: true
-        }]
-      } else {
-        this.players = [{
-          id: 27997450,
-          steamname: 'Mikel',
-          rank: 72
-        }, {
-          id: 187713322,
-          steamname: 'Firefiend',
-          rank: 65,
-          captain: true
-        }]
-      }
-      this.loading = false
     }
   }
 }

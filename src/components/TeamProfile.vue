@@ -15,10 +15,10 @@
     <section class="section">
       <div class="container">
         <div class="tile is-ancestor">
-          <div class="tile is-3 is-parent">
+          <div class="tile is-3 is-parent is-vertical">
             <div class="article tile is-child box">
               <figure class="image is-256x256">
-                <img :src="image">
+                <img :src="picture">
               </figure>
             </div>
           </div>
@@ -33,16 +33,13 @@
   </section>
 </template>
 
-<style scoped>
-</style>
-
 <script>
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import TeamPlayers from '@/components/TeamPlayers.vue'
+import { mapState, mapActions } from 'vuex'
+
 export default {
-  name: 'PlayerProfile',
+  name: 'TeamProfile',
   components: {
-    FontAwesomeIcon,
     TeamPlayers
   },
   props: {
@@ -52,23 +49,24 @@ export default {
       validator: value => value > 0
     }
   },
-  data () {
-    return {
-      name: null,
-      image: null
-    }
+  computed: {
+    ...mapState({
+      name: state => state.currentTeam.info.name,
+      picture: state => state.currentTeam.info.picture
+    })
   },
   watch: {
-    '$route': 'fetchData'
+    '$route.params.id' (team) {
+      this.loadTeamInfoById(team)
+    }
   },
   created () {
-    this.fetchData()
+    this.loadTeamInfoById(this.id)
   },
   methods: {
-    fetchData () {
-      this.name = '4PM'
-      this.image = 'https://bulma.io/images/placeholders/256x256.png'
-    }
+    ...mapActions({
+      loadTeamInfoById: 'loadTeamInfoById'
+    })
   }
 }
 </script>

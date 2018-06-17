@@ -18,7 +18,7 @@ export default new Router({
         navigation: NavBar
       }
     }, {
-      path: '/season/:season',
+      path: '/seasons/:season',
       name: 'SeasonHome',
       components: {
         default: SeasonHome,
@@ -28,7 +28,7 @@ export default new Router({
         default: route => ({ season: Number(route.params.season) })
       }
     }, {
-      path: '/player/:id',
+      path: '/players/:id',
       name: 'PlayerProfile',
       components: {
         default: PlayerProfile,
@@ -38,7 +38,7 @@ export default new Router({
         default: route => ({ id: Number(route.params.id) })
       }
     }, {
-      path: '/team/:id',
+      path: '/teams/:id',
       name: 'TeamProfile',
       components: {
         default: TeamProfile,

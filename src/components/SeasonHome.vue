@@ -1,7 +1,7 @@
 <template>
   <section
     id="season">
-    <section class="hero is-primary is-bold">
+    <section class="hero">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">Season {{ season }}</h1>
@@ -13,10 +13,10 @@
             <ul>
               <li
                 v-for="d in divisions"
-                :key="d"
-                :class="[{'is-active': currentDivision === d}]"
-                @click="currentDivision = d">
-                <a>{{ d }}</a>
+                :key="d.id"
+                :class="[{'is-active': currentDivision.id === d.id}]"
+                @click="updateCurrentDivision(d)">
+                <a>{{ d.name }}</a>
               </li>
             </ul>
           </div>
@@ -25,22 +25,20 @@
     </section>
     <nav
       id="seasonTabs"
-      class="tabs">
+      class="tabs is-boxed">
       <div class="container">
         <ul>
           <li
             v-for="tab in tabs"
             :key="tab.name"
-            :class="[{'is-active': currentTab.name === tab.name}]"
+            :class="[{'is-active': currentTab.name === tab.name, 'tab': true}]"
             @click="currentTab = tab"><a>{{ tab.name }}</a></li>
         </ul>
       </div>
     </nav>
     <div class="container">
       <component
-        :is="currentTab.component"
-        :season="season"
-        :division="currentDivision"/>
+        :is="currentTab.component"/>
     </div>
   </section>
 </template>
@@ -49,6 +47,7 @@
 import SeasonSeriesList from './SeasonSeriesList.vue'
 import SeasonStanding from './SeasonStanding.vue'
 import PlayerList from './PlayerList.vue'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 let tabs = [
   {name: 'Standings', component: SeasonStanding},
@@ -73,21 +72,38 @@ export default {
   data () {
     return {
       tabs: tabs,
-      currentTab: tabs[0],
-      divisions: null,
-      currentDivision: null
+      currentTab: tabs[0]
     }
   },
+  computed: {
+    ...mapState({
+      divisions: 'divisions',
+      currentDivision: 'currentDivision'
+    })
+  },
   watch: {
-    '$route': 'fetchData'
+    '$route.params.season' (season) {
+      this.loadDivisionsBySeason(season)
+    }
   },
   created () {
-    this.fetchData()
+    this.loadDivisionsBySeason(this.season)
   },
   methods: {
-    fetchData () {
-      this.divisions = this.season === 13 ? ['CET-WED', 'CET-SAT'] : ['CET-WED', 'CET-SUN']
-      this.currentDivision = this.divisions[0]
+    ...mapActions({
+      loadDivisionsBySeason: 'loadDivisionsBySeason',
+      loadDivisionStanding: 'loadDivisionStanding',
+      loadDivisionPlayers: 'loadDivisionPlayers',
+      loadDivisionSeries: 'loadDivisionSeries'
+    }),
+    ...mapMutations({
+      setCurrentDivision: 'SET_CURRENT_DIVISION'
+    }),
+    updateCurrentDivision (division) {
+      this.loadDivisionStanding({season: this.season, division: division.id})
+      this.loadDivisionPlayers({season: this.season, division: division.id})
+      this.loadDivisionSeries({season: this.season, division: division.id})
+      this.setCurrentDivision(division)
     }
   }
 }
